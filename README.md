@@ -1,1 +1,1 @@
-# cpp_blank_template
+# cpp_counting_semaphore
