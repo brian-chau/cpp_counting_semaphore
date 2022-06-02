@@ -1,34 +1,33 @@
-// pingPongSemaphore.cpp
-
 #include <iostream>
 #include <semaphore>
 #include <thread>
 
-std::counting_semaphore<1> signal2Ping(0);  // (1)
-std::counting_semaphore<1> signal2Pong(0);  // (2)
+std::counting_semaphore<1> A(0);  // (1)
+std::counting_semaphore<1> B(0);  // (2)
 
 std::atomic<int> counter{};
 constexpr int countlimit = 1'000'000;
 
 void ping() {
     while (counter < countlimit) {
-        signal2Ping.acquire();  // (5)
+        A.acquire();  // (5)
         ++counter;
-        signal2Pong.release();
+        B.release();
     }
 }
 
 void pong() {
     while (counter < countlimit) {
-        signal2Pong.acquire();
-        signal2Ping.release();  // (3)
+        B.acquire();
+        ++counter;
+        A.release();  // (3)
     }
 }
 
 int main() {
     auto start = std::chrono::system_clock::now();
 
-    signal2Ping.release();  // (4)
+    A.release();  // (4)
     std::thread t1(ping);
     std::thread t2(pong);
 
