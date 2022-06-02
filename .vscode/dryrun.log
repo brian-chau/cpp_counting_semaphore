@@ -1,0 +1,10 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/user/repos/cpp_blank_template'
+g++-11 -Wall -Werror -std=c++20   -I./headers  -I./sources  -I./headers/  -I./sources/ -c sources/main.cpp  -o sources/main.o
+# TODO: If you want to create a normal binary file, use this
+g++-11 -Wall -Werror -std=c++20   -I./headers  -I./sources  -I./headers/  -I./sources/ -o exe ./sources/main.o -L./libs -pthread
+# TODO: If you want to create a shared library, use this
+# g++-11 -Wall -Werror -std=c++20   -pthread -o exe sources/main.o
+echo  'exe' has been compiled
+make: Leaving directory '/home/user/repos/cpp_blank_template'
+ 
